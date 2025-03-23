@@ -4,7 +4,380 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tera Box Deck</title>
-    <link rel="stylesheet" href="/decks/assets/css/styles.css">
+    <style>
+    /* Base Styles */
+    :root {
+        --primary: #ff697e; /* Pinker salmon */
+        --secondary: #ff8c9d; /* Lighter pink */
+        --accent: #ff4d67; /* Brighter pink for highlights */
+        --text: #e1e1e1; /* Light text for dark background */
+        --bg: #1a1a1a; /* Dark background */
+        --card-bg: #2a2a2a; /* Slightly lighter than background for cards */
+        --card-hover-scale: 1.1;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background-color: var(--bg);
+        padding: 20px;
+    }
+
+    header {
+        background-color: #222;
+        color: var(--primary);
+        padding: 16px;
+        margin-bottom: 32px;
+        border-bottom: 2px solid var(--primary);
+    }
+
+    nav a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    nav a:hover {
+        color: var(--accent);
+    }
+
+    h1 {
+        color: var(--primary);
+        margin-bottom: 24px;
+    }
+
+    h2 {
+        margin-bottom: 16px;
+        color: var(--primary);
+    }
+
+    /* Card Styles */
+    .card-section {
+        margin-bottom: 32px;
+    }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+    }
+
+    .card {
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.2s ease-out, box-shadow 0.3s ease; /* Add transition to box-shadow */
+        position: relative; /* Add this for absolute positioning of card-info */
+    }
+
+    .card:hover {
+        transform: scale(var(--card-hover-scale));
+        z-index: 1;
+        box-shadow: 0 4px 12px rgba(255, 105, 126, 0.4);
+    }
+
+    .card-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .card-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(42, 42, 42, 0.7); /* Semi-transparent background */
+        padding: 8px;
+        backdrop-filter: blur(2px); /* Slight blur effect for modern browsers */
+    }
+
+    .card-count {
+        font-weight: bold;
+        margin-right: 4px;
+        color: var(--primary);
+    }
+
+    .card-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+
+    .image-error {
+        height: 280px;
+        background: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        padding: 16px;
+        text-align: center;
+        color: #aaa;
+    }
+
+    /* Deck Directory */
+    .deck-directory {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 24px;
+    }
+
+    .deck-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition to box-shadow */
+    }
+
+    .deck-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(255, 105, 126, 0.3);
+    }
+
+    .deck-thumbnail {
+        height: 220px;
+        background: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deck-thumbnail img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .deck-info {
+        padding: 16px;
+    }
+
+    .deck-validation {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .validation-error {
+        background: rgba(255, 77, 103, 0.2);
+        border-left: 4px solid var(--accent);
+        color: var(--accent);
+        padding: 12px 16px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        overflow: auto;
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: var(--card-bg);
+        margin: 5% auto;
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 8px;
+        border: 1px solid #444;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .modal-close:hover {
+        color: var(--primary);
+    }
+
+    #modal-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Deck description */
+    .deck-description {
+        background: rgba(255, 105, 126, 0.1);
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+        border-left: 4px solid var(--primary);
+    }
+
+    /* Move copy-success message */
+    .deck-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Vertically center the items */
+        margin-bottom: 24px;
+    }
+
+    .deck-title-area {
+        flex-grow: 1;  /* Allow title area to take up available space */
+        flex-shrink: 1; /* Allow title area to shrink if needed */
+        min-width: 0;    /* Prevent content from overflowing */
+    }
+
+    .copy-button-wrapper {
+        display: flex;
+        align-items: center; /* Vertically center the button and message */
+        flex-shrink: 0;   /* Prevent button wrapper from shrinking */
+    }
+
+    .copy-success {
+        margin-right: 10px; /* Move margin to the right */
+        color: var(--accent);
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .copy-success.visible {
+        opacity: 1;
+    }
+
+    .copy-button {
+        display: inline-block;
+        background: var(--primary);
+        color: #222;
+        padding: 10px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        margin-bottom: 0; /* Remove bottom margin */
+        transition: background-color 0.2s;
+    }
+
+    .copy-button:hover {
+        background: var(--accent);
+    }
+
+    /* Smaller cards for deck view */
+    .deck-container .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .deck-container .card-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .deck-container .card-info {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .deck-container .image-error {
+        height: 168px; /* 60% of original 280px */
+    }
+
+    /* Deck header with title and copy button */
+    .deck-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 24px;
+    }
+
+    .deck-title-area {
+        flex: 1;
+    }
+
+    .deck-title-area h1 {
+        margin-bottom: 8px;
+    }
+
+    .deck-credit {
+        font-size: 0.9em;
+        color: #aaa;
+        margin-bottom: 16px;
+    }
+
+    .deck-credit a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    .deck-credit a:hover {
+        text-decoration: underline;
+        color: var(--accent);
+    }
+
+    /* Custom image badge */
+    .custom-image-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background-color: rgba(255, 105, 126, 0.7);
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 400px) {
+        .copy-button-wrapper {
+            display: none; /* Hide the button and message */
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .card-grid {
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+        
+        .modal-content {
+            width: 90%;
+            margin: 10% auto;
+        }
+        
+        .deck-container .card-grid {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
+    }
+    </style>
 </head>
 <body>
     <header>
@@ -662,6 +1035,57 @@
         });
     </script>
     
-    <script src="/decks/assets/js/deck.js"></script>
+    <script">
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get modal elements
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-image');
+    const closeBtn = document.querySelector('.modal-close');
+    
+    // Get all card elements
+    const cards = document.querySelectorAll('.card');
+    
+    // Open modal with card image
+    function openModal(imageUrl, cardName) {
+        modalImg.src = imageUrl;
+        modalImg.alt = cardName;
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Close modal
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Add click listeners to cards
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const imageUrl = this.getAttribute('data-image');
+            const cardName = this.getAttribute('data-name');
+            openModal(imageUrl, cardName);
+        });
+    });
+    
+    // Close button click
+    closeBtn.addEventListener('click', closeModal);
+    
+    // Click outside modal to close
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Close with ESC key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+});
+
+    </script>
 </body>
 </html>
