@@ -1,0 +1,14 @@
+{
+    "name": "pokemon-deck-viewer",
+    "version": "1.0.0",
+    "description": "Static, interactive decklist viewer for Pokémon card decks",
+    "scripts": {
+        "build": "eleventy",
+        "start": "eleventy --serve",
+        "debug": "DEBUG=* eleventy"
+    },
+    "dependencies": {
+        "@11ty/eleventy": "^2.0.1",
+        "ai-digest": "^1.0.8"
+    }
+}

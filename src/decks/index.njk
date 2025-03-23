@@ -1,0 +1,30 @@
+---
+layout: layouts/base.njk
+title: Pokémon Deck Directory
+permalink: /decks/index.html
+---
+
+<h1>Pokémon Deck Directory</h1>
+
+<div class="deck-directory">
+    {% for deckName, deckData in decks %}
+    <a href="/decks/{{ deckName }}/" class="deck-card">
+        <div class="deck-thumbnail">
+            <img 
+                src="{{ deckData.thumbnailCard.imageUrl }}" 
+                alt="{{ deckData.thumbnailCard.name }}"
+                loading="lazy"
+                onerror="this.onerror=null; this.src=''; this.alt='{{ deckData.thumbnailCard.name }}'; this.classList.add('image-error');"
+            >
+        </div>
+        <div class="deck-info">
+            <h2>{{ deckData.title }}</h2>
+            {% if not deckData.isValid %}
+            <div class="deck-validation">
+                Invalid: {{ deckData.totalCards }}/60 cards
+            </div>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>

@@ -1,0 +1,44 @@
+---
+permalink: /debug.html
+---
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Info</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        h1 { color: #333; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; }
+        .card { margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Debug Information</h1>
+    
+    <h2>Available Decks</h2>
+    <ul>
+        {% for deckName, deckData in decks %}
+        <li>
+            <strong>{{ deckData.title }}</strong> - 
+            <a href="/decks/{{ deckName }}/">/decks/{{ deckName }}/</a>
+            ({{ deckData.totalCards }} cards)
+        </li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Collection Keys</h2>
+    <ul>
+        {% for key in collections | keys %}
+        <li>{{ key }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Template Files</h2>
+    <ul>
+        <li>src/decks/index.njk → /decks/index.html</li>
+        {% for deckName in decks | keys %}
+        <li>src/templates/{{ deckName }}.njk → /decks/{{ deckName }}/index.html</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

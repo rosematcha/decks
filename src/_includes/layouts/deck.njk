@@ -1,0 +1,45 @@
+---
+layout: layouts/base.njk
+---
+
+<h1>{{ title }}</h1>
+
+<div style="background: #f5f5f5; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd;">
+  <p>Debug info:</p>
+  <p>Deck name: {{ deck.name }}</p>
+  <p>Total cards: {{ deck.totalCards }}</p>
+  <p>Number of sections: {{ deck.cardsBySection | keys | length }}</p>
+</div>
+
+{% if not deck.isValid %}
+<div class="validation-error">
+    This deck contains {{ deck.totalCards }} cards. A valid deck must contain exactly 60 cards.
+</div>
+{% endif %}
+
+<div class="deck-container">
+    {% for sectionName, sectionCards in deck.cardsBySection %}
+    <section class="card-section">
+        <h2>{{ sectionName }}</h2>
+        <div class="card-grid">
+            {% for card in sectionCards %}
+            <div class="card-container">
+                <div class="card" data-image="{{ card.imageUrl }}" data-name="{{ card.name }}">
+                    <img 
+                        src="{{ card.imageUrl }}" 
+                        alt="{{ card.name }}" 
+                        class="card-image"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src=''; this.alt='{{ card.name }}'; this.classList.add('image-error');"
+                    >
+                    <div class="card-info">
+                        <span class="card-count">{{ card.count }}×</span>
+                        <span class="card-name">{{ card.name }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+</div>

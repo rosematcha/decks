@@ -1,0 +1,44 @@
+Name: Dragapult ex
+Description: Dragapult is an absurdly good deck now, and will be even better post-rotation!
+- Dragapult ex is your main attacker. Place damage counters around the board and take big knockouts with Phantom Dive.
+- Dusknoir synergizes great with Dragapult, allowing you to pop a bunch of damage onto an opposing Pokémon.
+- Pelipper fills in for Lumineon, allowing you to grab a supporter from deck (or discard!)
+- Budew slows the game down a lot. Take advantage of it if you don't get the best setup.
+Credit: JustInBasil (https://www.justinbasil.com/new-decks/sv9#dragapultex)
+
+Pokémon: 22
+4 Dreepy PRE 71
+4 Drakloak PRE 72
+*3 Dragapult ex PRE 73
+2 Duskull SFA 18
+1 Dusclops PRE 36
+2 Dusknoir PRE 37
+2 Wingull PAL 158
+2 Pelipper PAL 159
+1 Budew PRE 4
+1 Fezandipiti ex SFA 38
+
+Trainer: 32
+4 Arven OBF 186
+2 Iono PAF 80
+1 Boss's Orders PAL 172
+1 Crispin PRE 105
+1 Professor Turo's Scenario PRE 121
+1 Professor's Research PRE 125
+4 Buddy-Buddy Poffin PRE 101
+3 Ultra Ball PAF 91
+2 Counter Catcher PAR 160
+2 Nest Ball PAF 84
+2 Night Stretcher SFA 61
+2 Rare Candy PAF 89
+1 Earthen Vessel PRE 106
+1 Super Rod PAL 188
+1 Tera Orb SSP 189
+1 Rescue Board PRE 126
+1 Sparkling Crystal PRE 129
+1 Technical Machine: Evolution PAR 178
+1 Artazon PAF 76
+
+Energy: 6
+3 Basic Fire Energy SVE 2
+3 Basic Psychic Energy SVE 5

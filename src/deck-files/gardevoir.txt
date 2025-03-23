@@ -1,0 +1,36 @@
+Name: Gardevoir ex
+Description: This is a combination of a lot of Japanese Gardevoir lists. Gardevoir loses Refinement, but it doesn't lose everything. Notably, it gains Clefairy, which allows it to hit for weakness on Dragapult, the BDIF, and Raging Bolt, the people's BDIF. The deck now also leans a lot more on Research to get those Psychic energy into the discard and cuts the TM Evolution since you don't really want Kirlias on your board.
+Image: Lillie's Clefairy ex = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1734862575845-NDY50YM7A4REZH0HIDUU/Lillie's+Clefairy+ex.png
+
+Pokémon: 16
+3 Ralts SVI 211
+2 Kirlia SVI 212
+*2 Gardevoir ex SVI 245
+2 Munkidori SFA 72
+1 Budew PRE 4
+1 Klefki SVI 96
+1 Drifloon SVI 89
+1 Scream Tail PRE 42
+1 Mew ex MEW 151
+1 Lillie's Clefairy ex SV9 33
+1 Fezandipiti ex SFA 38
+
+Trainer: 35
+4 Iono PAL 185
+3 Professor's Research PRE 122
+2 Arven OBF 186
+1 Boss's Orders PAL 172
+4 Buddy-Buddy Poffin PRE 101
+3 Ultra Ball PAF 91
+2 Nest Ball PAF 84
+4 Night Stretcher SFA 61
+3 Rare Candy PAF 89
+2 Counter Catcher PAR 160
+1 Earthen Vessel PRE 106
+1 Brilliant Blender SSP 164
+3 Bravery Charm PAL 173
+2 Artazon PAF 76
+
+Energy: 9
+7 Psychic Energy CL 92
+2 Darkness Energy CL 94

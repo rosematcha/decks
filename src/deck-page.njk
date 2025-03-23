@@ -1,0 +1,128 @@
+---
+pagination:
+  data: collections.deckPages
+  size: 1
+  alias: deckPage
+permalink: "{{ deckPage.data.permalink }}"
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ deckPage.data.title }}</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/decks/">Deck Directory</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="deck-header">
+            <div class="deck-title-area">
+                <h1>{{ deckPage.data.title | replace(" Deck", "") }}</h1>
+                {% if deckPage.data.deck.creditName %}
+                <div class="deck-credit">
+                    Credit: 
+                    {% if deckPage.data.deck.creditUrl %}
+                    <a href="{{ deckPage.data.deck.creditUrl }}" target="_blank" rel="noopener">{{ deckPage.data.deck.creditName }}</a>
+                    {% else %}
+                    {{ deckPage.data.deck.creditName }}
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="copy-button-wrapper">
+                <span id="copy-success" class="copy-success">Copied!</span>
+                <button id="copy-button" class="copy-button">Copy for PTCGL</button>
+            </div>
+        </div>
+
+        {% if deckPage.data.deck %}
+            {% if deckPage.data.deck.description %}
+            <div class="deck-description">
+                {{ deckPage.data.deck.description | nl2br | safe }}
+            </div>
+            {% endif %}
+            
+            {% if not deckPage.data.deck.isValid %}
+            <div class="validation-error">
+                This deck contains {{ deckPage.data.deck.totalCards }} cards. A valid deck must contain exactly 60 cards.
+            </div>
+            {% endif %}
+
+            <div class="deck-container">
+                <div class="card-grid">
+                    {% for card in deckPage.data.deck.cards %}
+                    <div class="card-container">
+                        <div class="card" data-image="{{ card.imageUrl }}" data-name="{{ card.name }}">
+                            <img 
+                                src="{{ card.imageUrl }}" 
+                                alt="{{ card.name }}" 
+                                class="card-image"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src=''; this.alt='{{ card.name }}'; this.classList.add('image-error');"
+                            >
+                            <div class="card-info">
+                                <span class="card-count">{{ card.count }}×</span>
+                                <span class="card-name">{{ card.name }}</span>
+                                {% if card.hasCustomImage %}
+                                <span class="custom-image-badge" title="Custom image">📷</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <p>No deck data available.</p>
+        {% endif %}
+    </main>
+    
+    <footer>
+        <p>Pokémon Deck Viewer</p>
+    </footer>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img id="modal-image" src="" alt="Card">
+        </div>
+    </div>
+    
+    <script>
+        // Copy to clipboard functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyButton = document.getElementById('copy-button');
+            const copySuccess = document.getElementById('copy-success');
+            
+            if (copyButton) {
+                copyButton.addEventListener('click', function() {
+                    // Get the deck list in PTCGL format
+                    const deckList = `{{ deckPage.data.deck.ptcglFormat | safe }}`;
+                    
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(deckList).then(function() {
+                        // Show success message
+                        copySuccess.classList.add('visible');
+                        
+                        // Hide after 2 seconds
+                        setTimeout(function() {
+                            copySuccess.classList.remove('visible');
+                        }, 2000);
+                    }).catch(function(err) {
+                        console.error('Could not copy text: ', err);
+                        alert('Failed to copy deck list. Please try again.');
+                    });
+                });
+            }
+        });
+    </script>
+    
+    <script src="/assets/js/deck.js"></script>
+</body>
+</html>
