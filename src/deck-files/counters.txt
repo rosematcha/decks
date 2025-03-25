@@ -1,16 +1,18 @@
 Name: Counter Box
-Description: Do you have hatred in your heart? Do you love the suffering of others? This may be the deck for you! Set up a counter targeting your opponent's deck and watch them cope. Milotic ex blocks all damage from Teras like Ogerpon, Dragapult, and Charizard. Farigiraf ex shuts down damage from basic Pokémon ex like Raging Bolt and the entirety of Tera Box. Cornerstone Ogerpon ex shuts down any Pokémon with abilities, like Charizard ex and Gholdengo ex, and has an attack to shred through other walls. Manage your Mist Energies effectively to shut off effects that can cut through your walls, like Roaring Moon ex's Frenzied Gouging or damage counter placement from Dragapult ex, and heal up any leftover damage with Poké Vital A. Have fun with your supervillain arc!
+Description: Set up a counter targeting your opponent's deck, and shut them down completely.
+- Milotic ex blocks all damage from Teras like Ogerpon, Dragapult, and Charizard.
+- Farigiraf ex shuts down damage from basic Pokémon ex like Raging Bolt and Tera Box.
+- Cornerstone Ogerpon ex shuts down Pokémon with abilities, like Charizard and Gholdengo, and its attack shreds through other walls.
+- Manage Mist Energies effectively to shut off effects that can cut through your walls, and heal up leftover damage with Poké Vital A.
 Credit: JustInBasil (https://www.justinbasil.com/new-decks/sv9#miloticex)
 
-Pokémon - 13
 3 Feebas SSP 41
-3 Milotic ex SSP 42
+*3 Milotic ex SSP 42
 2 Cornerstone Mask Ogerpon ex PRE 58
 2 Farigiraf ex TEF 108
 2 Girafarig TWM 83
 1 Tatsugiri TWM 131
 
-Trainer Cards - 35
 4 Arven OBF 186
 4 Crispin PRE 105
 3 Colress's Tenacity SFA 57
@@ -29,7 +31,6 @@ Trainer Cards - 35
 1 Artazon PAF 76
 1 Town Store OBF 196
 
-Energy - 12
 3 Basic Fighting Energy SVE 6
 3 Basic Psychic Energy SVE 5
 3 Basic Water Energy SVE 3
