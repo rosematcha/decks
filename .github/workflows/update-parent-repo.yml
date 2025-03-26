@@ -1,0 +1,65 @@
+name: Update Parent Repo Submodule
+
+# Trigger this workflow whenever code is pushed to the 'main' branch
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    update-submodule:
+        # Use the latest Ubuntu runner
+        runs-on: ubuntu-latest
+        steps:
+            # Step 1: Check out the PARENT repository (rosematcha/site)
+            # This action needs permission to push back, hence the PAT.
+            - name: Checkout Parent Repo (site)
+              uses: actions/checkout@v4
+              with:
+                  repository: rosematcha/site # Your parent repo name
+                  token: ${{ secrets.PARENT_REPO_PAT }} # The PAT stored as a secret
+                  submodules: true # Initialize submodules, though we update manually
+
+            # Step 2: Update the submodule pointer and push
+            - name: Update 'decks' Submodule Pointer
+              run: |
+                  # Navigate into the checked-out parent repository directory
+                  # The checkout action places it in the root of the workspace
+                  # cd site # No longer needed if parent repo is checked out to root
+
+                  echo "Current directory: $(pwd)"
+                  echo "Listing contents:"
+                  ls -la
+
+                  # Check if the 'decks' directory exists (it should be the submodule)
+                  if [ ! -d "decks" ]; then
+                    echo "ERROR: Submodule directory 'decks' not found!"
+                    exit 1
+                  fi
+
+                  echo "Updating submodule 'decks'..."
+                  # Pull the latest changes from the remote branch ('main' by default)
+                  # for the submodule located at the 'decks' path
+                  git submodule update --remote --merge decks
+
+                  echo "Checking for changes..."
+                  # Check if the submodule update resulted in changes
+                  if [[ -z $(git status --porcelain) ]]; then
+                    echo "No changes detected in submodule pointer."
+                    exit 0 # Exit successfully, nothing to commit
+                  fi
+
+                  echo "Changes detected. Configuring git..."
+                  # Configure git user for the commit
+                  git config --global user.name 'github-actions[bot]'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+                  echo "Adding and committing changes..."
+                  # Stage the change to the submodule pointer
+                  git add decks
+                  # Commit the change, including [skip ci] to prevent build loops
+                  git commit -m "chore: Update decks submodule [skip ci]"
+
+                  echo "Pushing changes..."
+                  # Push the commit back to the parent repository's main branch
+                  git push
