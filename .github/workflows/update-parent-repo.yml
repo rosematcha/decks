@@ -1,6 +1,5 @@
 name: Update Parent Repo Submodule
 
-# Trigger this workflow whenever code is pushed to the 'main' branch
 on:
     push:
         branches:
@@ -8,45 +7,56 @@ on:
 
 jobs:
     update-submodule:
-        # Use the latest Ubuntu runner
         runs-on: ubuntu-latest
         steps:
-            # Step 1: Check out the PARENT repository (rosematcha/site)
-            # This action needs permission to push back, hence the PAT.
+            # Step 1: Checkout Parent Repo (site)
             - name: Checkout Parent Repo (site)
               uses: actions/checkout@v4
               with:
                   repository: rosematcha/site # Your parent repo name
                   token: ${{ secrets.PARENT_REPO_PAT }} # The PAT stored as a secret
-                  submodules: true # Initialize submodules, though we update manually
+                  # No need for submodules: true here, we'll handle it manually below
 
-            # Step 2: Update the submodule pointer and push
-            - name: Update 'decks' Submodule Pointer
+            # Step 2: Force Update 'decks' Submodule Pointer (Mimic Manual Fix)
+            - name: Force Update 'decks' Submodule Pointer
               run: |
-                  # Navigate into the checked-out parent repository directory
-                  # The checkout action places it in the root of the workspace
-                  # cd site # No longer needed if parent repo is checked out to root
-
-                  echo "Current directory: $(pwd)"
-                  echo "Listing contents:"
+                  echo "Current directory: $(pwd)" # Should be root of checked-out 'site'
                   ls -la
 
-                  # Check if the 'decks' directory exists (it should be the submodule)
+                  # Check if the 'decks' directory exists
                   if [ ! -d "decks" ]; then
                     echo "ERROR: Submodule directory 'decks' not found!"
                     exit 1
                   fi
 
-                  echo "Updating submodule 'decks'..."
-                  # Pull the latest changes from the remote branch ('main' by default)
-                  # for the submodule located at the 'decks' path
-                  git submodule update --remote --merge decks
+                  echo "Initializing submodule 'decks'..."
+                  # Ensure submodule is initialized and its files are present
+                  # Use --force to overwrite any potentially bad state
+                  git submodule update --init --force decks
 
-                  echo "Checking for changes..."
-                  # Check if the submodule update resulted in changes
+                  echo "Navigating into submodule 'decks'..."
+                  cd decks
+
+                  echo "Fetching latest from submodule remote..."
+                  # Fetch the latest commits from the submodule's origin (rosematcha/decks)
+                  git fetch origin
+
+                  echo "Checking out main branch in submodule..."
+                  # Ensure we are on the main branch locally within the submodule
+                  git checkout main
+
+                  echo "Resetting submodule to remote main..."
+                  # Forcefully reset the submodule's state to match its remote main branch
+                  git reset --hard origin/main
+
+                  echo "Navigating back to parent repo..."
+                  cd .. # Back to root of 'site'
+
+                  echo "Checking for changes in parent repo..."
+                  # Check if the submodule reset resulted in changes to the pointer in 'site'
                   if [[ -z $(git status --porcelain) ]]; then
-                    echo "No changes detected in submodule pointer."
-                    exit 0 # Exit successfully, nothing to commit
+                    echo "No changes detected in submodule pointer. Trigger commit might have been the target."
+                    exit 0 # Exit successfully, nothing new to commit
                   fi
 
                   echo "Changes detected. Configuring git..."
@@ -55,10 +65,10 @@ jobs:
                   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
                   echo "Adding and committing changes..."
-                  # Stage the change to the submodule pointer
+                  # Stage the change to the submodule pointer in the parent repo
                   git add decks
                   # Commit the change, including [skip ci] to prevent build loops
-                  git commit -m "chore: Update decks submodule [skip ci]"
+                  git commit -m "chore: Force-align decks submodule pointer [skip ci]"
 
                   echo "Pushing changes..."
                   # Push the commit back to the parent repository's main branch
