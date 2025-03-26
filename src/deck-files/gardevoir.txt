@@ -1,5 +1,7 @@
 Name: Gardevoir ex
-Description: This is a combination of a lot of Japanese Gardevoir lists. Gardevoir loses Refinement, but it doesn't lose everything. Notably, it gains Clefairy, which allows it to hit for weakness on Dragapult and Raging Bolt. The deck now also leans a lot more on Research to get those Psychic energy into the discard and cuts the TM Evolution since you don't really want Kirlias on your board.
+Description: - Gardevoir's biggest gain is Clefairy, which lets you swing for weakness on both Dragapult ex and Raging Bolt ex.
+- Use Brilliant Blender and Research to dump a bunch of energy into the discard.
+- Budew and Klefki give you the option to slow the game down a lot if you need to.
 Image: Lillie's Clefairy ex = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1734862575845-NDY50YM7A4REZH0HIDUU/Lillie's+Clefairy+ex.png
 
 Pokémon: 16
