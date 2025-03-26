@@ -2,7 +2,9 @@ Name: Archaludon ex
 Credit: Soryu (https://limitlesstcg.com/decks/list/jp/27620)
 Image: Hop's Zacian ex = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1735286264283-EVLEBXA6NO1WLJ2A0FXK/Hop's+Zacian+ex.png
 Image: Hop's Cramorant = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1735286514925-CG2FAV86TAKCSNSSLD03/Hop%27s+Cramorant.png
-
+Image: Iris's Fighting Spirit = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1736492136552-663CFJX3XSO2Q3U9NXF4/Iris's+Fighting+Spirit.png
+Image: Hop's Snorlax = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1735286262517-2366H4TMH713H1PGA6GX/Hop's+Snorlax.png
+Image: Hop's Choice Band = https://images.squarespace-cdn.com/content/v1/5cf4cfa4382ac0000123aa1b/1735282420335-ZH74N6MYSNR4839O08F3/Hop%27s+Choice+Band.png
 
 Pokémon: 14
 4 Duraludon SCR 106
